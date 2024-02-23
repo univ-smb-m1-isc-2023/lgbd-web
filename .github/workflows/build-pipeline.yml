@@ -3,12 +3,12 @@ name: Publish prod image
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
 
   build:
-    name : build master branch
+    name : build main branch
     permissions: write-all
     runs-on: ubuntu-22.04
     steps:
@@ -34,5 +34,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: univ-smb-m1-isc-2023/lgbd-web/master
+          repository: univ-smb-m1-isc-2023/lgbd-web/main
           tags: latest

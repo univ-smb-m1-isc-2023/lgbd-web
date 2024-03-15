@@ -6,13 +6,33 @@ function Home(){
     const [msgBddOn, setmsgBddOn] = useState('');
 
     const backendTest = async () => {
-        const response = await fetch('api/hello');
-        const data = await response.json();
-        setmsgBack(data.message);
+        try{
+            const response = await fetch('/hello');
+            const data = await getBody(response);
+            console.log(data);
+            setmsgBack(data);
+        }catch(error){
+            console.log(error);
+        }
+        
+        // setmsgBack(data.message);
+    }
+
+    const getBody = async (response) => {
+        const reader = response.body.getReader();
+        let str = "";
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) {
+                break;
+            }
+            str += new TextDecoder().decode(value);
+        }
+        return str;
     }
 
     const bddTest = async () => {
-        const response = await fetch('api/bdd');
+        const response = await fetch('api/base');
         const data = await response.json();
         setmsgBddOn(data.message);
     }
@@ -20,10 +40,10 @@ function Home(){
         <>
             <div className="home">
                 <p>
-                    Etat actuel du backend : {msgBack === '' ? 'Non connecté' : ''}
+                    Etat actuel du backend : {msgBack === '' ? 'Non connecté' : msgBack}
                 </p>
                 <p>
-                    Etat actuel de la base de données : {msgBddOn == '' ? 'Non connectée' : ''}
+                    Etat actuel de la base de données : {msgBddOn == '' ? 'Non connectée' : msgBddOn}
                 </p>
                 <button onClick={backendTest}>Tester le backend</button>
                 <button onClick={bddTest}>Tester la base de données</button>

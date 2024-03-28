@@ -1,0 +1,13 @@
+.createaccForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.createaccForm input {
+    margin-bottom: 10px;
+}
+
+.createaccForm button {
+    margin-top: 10px;
+}

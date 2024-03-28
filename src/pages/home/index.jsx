@@ -9,7 +9,6 @@ function Home(){
         try{
             const response = await fetch('/hello');
             const data = await getBody(response);
-            console.log(data);
             setmsgBack(data);
         }catch(error){
             console.log(error);
@@ -32,9 +31,9 @@ function Home(){
     }
 
     const bddTest = async () => {
-        const response = await fetch('api/base');
-        const data = await response.json();
-        setmsgBddOn(data.message);
+        const response = await fetch('/base');
+        const data = await getBody(response);
+        setmsgBddOn(data);
     }
     return (
         <>

@@ -7,7 +7,7 @@ function Home(){
 
     const backendTest = async () => {
         try{
-            const response = await fetch('/hello');
+            const response = await fetch('https://api-lgbd.oups.net/hello');
             const data = await getBody(response);
             setmsgBack(data);
         }catch(error){
@@ -31,7 +31,7 @@ function Home(){
     }
 
     const bddTest = async () => {
-        const response = await fetch('/base');
+        const response = await fetch('https://api-lgbd.oups.net/base');
         const data = await getBody(response);
         setmsgBddOn(data);
     }

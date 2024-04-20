@@ -1,51 +1,50 @@
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
+import './home.css';
 
 function Home(){
-    const [msgBack, setmsgBack] = useState('');
-    const [msgBddOn, setmsgBddOn] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [bdNumber, setBdNumber] = useState(0);
 
-    const backendTest = async () => {
-        try{
-            const response = await fetch('https://api-lgbd.oups.net/hello');
-            const data = await getBody(response);
-            setmsgBack(data);
-        }catch(error){
-            console.log(error);
-        }
-        
-        // setmsgBack(data.message);
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
     }
-
-    const getBody = async (response) => {
-        const reader = response.body.getReader();
-        let str = "";
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) {
-                break;
-            }
-            str += new TextDecoder().decode(value);
-        }
-        return str;
-    }
-
-    const bddTest = async () => {
-        const response = await fetch('https://api-lgbd.oups.net/base');
-        const data = await getBody(response);
-        setmsgBddOn(data);
-    }
+    
     return (
         <>
-            <div className="home">
-                <p>
-                    Etat actuel du backend : {msgBack === '' ? 'Non connecté' : msgBack}
-                </p>
-                <p>
-                    Etat actuel de la base de données : {msgBddOn == '' ? 'Non connectée' : msgBddOn}
-                </p>
-                <button onClick={backendTest}>Tester le backend</button>
-                <button onClick={bddTest}>Tester la base de données</button>
+            <p className="message">LGBD, la référence pour tenir le compte de votre précieuse collection</p>
+            <div className="search">
+                <input 
+                    type="text" 
+                    placeholder="🔍 Recherche une BD" 
+                    value={searchTerm} 
+                    onChange={handleSearchChange}
+                />            
+            </div>
+            <div className="bdNumber">
+                <p>A ce jour, {bdNumber} bandes dessinées sont présentes sur le site.</p>
+            </div>
+            <div className="topFive">
+                <p>Les 5 séries les plus populaires :</p>
+                <div className="cardContainer">
+                    <div className="card firstCard">
+                        <p>1. Série 1</p>
+                    </div>
+                </div>
+                <div className="cardContainer">
+                    <div className="card">
+                        <p>2. Série 2</p>
+                    </div>
+                    <div className="card">
+                        <p>3. Série 3</p>
+                    </div>
+                    <div className="card">
+                        <p>4. Série 4</p>
+                    </div>
+                    <div className="card">
+                        <p>5. Série 5</p>
+                    </div>
+                </div>
             </div>
         </>
     )

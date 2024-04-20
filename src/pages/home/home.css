@@ -1,0 +1,67 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.message {
+    font-size: 1.2em;
+    color: #333;
+    text-align: center;
+    margin: 20px 0;
+    margin-bottom: 30px;
+}
+
+.search {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.search input {
+    width: 50%;
+    padding: 10px;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.06);
+    font-size: 16px;
+}
+
+.bdNumber {
+    margin: 20px 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    margin-bottom: 75px;
+}
+
+.topFive {
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.06);
+    padding: 20px;
+    width: 75%;
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.06);
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.firstCard {
+    margin-bottom: 20px; /* This will add space between the first card and the rest */
+}

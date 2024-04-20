@@ -1,14 +1,18 @@
-.createacc {
+.login {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: 65vh;
+    height: 45vh;
     padding-top: 50px;
-    background-color: #f5f5f5;
 }
 
-.createaccForm {
+.login h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.loginForm {
     display: flex;
     flex-direction: column;
     width: 300px;
@@ -18,19 +22,19 @@
     background-color: #fff;
 }
 
-.createaccForm label {
+.loginForm label {
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-.createaccForm input {
+.loginForm input {
     margin-bottom: 15px;
     padding: 10px;
     border-radius: 3px;
     border: 1px solid #ddd;
 }
 
-.createaccForm button {
+.loginForm button {
     padding: 10px;
     border-radius: 3px;
     border: none;
@@ -39,7 +43,7 @@
     cursor: pointer;
 }
 
-.createaccForm button:hover {
+.loginForm button:hover {
     background-color: #04a892;
 }
 
@@ -50,5 +54,8 @@
     align-items: center;
     width: 100%;
     height: calc(100% - 75vh); 
-    background-color: #f5f5f5;
+}
+
+body, html {
+    background-color : #f5f5f5;
 }

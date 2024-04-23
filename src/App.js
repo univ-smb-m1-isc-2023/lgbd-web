@@ -5,6 +5,8 @@ import Login from './pages/login';
 import Account from './pages/account';
 import CreateAcc from './pages/createacc';
 import Users from './pages/users';
+import UserSettings from './pages/usersettings';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import './styles/main.css';
 import {Routes, Route, Link, useLocation, useNavigate} from 'react-router-dom';
 import React, {useState, createContext, useContext} from 'react';
@@ -16,14 +18,16 @@ function App() {
   let navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [user, setUser] = useState({});
 
   const logout = (event) => {
     setIsLoggedIn(false);
     setUsername('');
+    setUser({});
   }
 
   return (
-    <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn, username, setUsername}}>
+    <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn, username, setUsername, user, setUser}}>
       <div className="App">
         <div className='topnav'>
           <div>
@@ -49,7 +53,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/login' element={<Login/>}/>
+          {/* <Route path='/account' element={<PrivateRoute><Account/></PrivateRoute>}/>
+          <Route path='/usersettings' element={<PrivateRoute><UserSettings/></PrivateRoute>}/> */}
           <Route path='/account' element={<Account/>}/>
+          <Route path='/usersettings' element={<UserSettings/>}/>
           <Route path='/createacc' element={<CreateAcc/>}/>
           <Route path='/users' element={<Users/>}/>
         </Routes>

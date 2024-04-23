@@ -1,0 +1,85 @@
+.firstLine {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.accountInfos {
+    display: flex;
+    align-items: center;
+    margin-right: 100px;
+}
+
+.admin {
+    display: flex;
+    justify-content: center;
+    margin-right: 100px;
+    background-color:red;
+    width: 80px;
+    color: white;
+}
+
+.settings-button{
+    width: 50px;
+    height:50px;
+}
+
+.bdContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 140px;
+}
+
+.bdCount{
+    margin: 50px 0;
+}
+
+.bdList{
+    background-color: lightgray;
+    padding: 20px; /* Adjust padding as needed */
+    display: flex;
+    width: min-content;
+    justify-content: center; /* Center the items horizontally */
+}
+
+.bdList p {
+    width: 100px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+    background-color: blue;
+    color: white;
+    text-align: center;
+    line-height: 100px; /* Center text vertically */
+    margin: 0 5px; /* Adjust margin between elements */
+}
+
+.bdList {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 10px; /* Adjust gap between elements */
+    justify-content: center; /* Center the grid horizontally */
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.lendBD, .shareBD {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.lendBDimg, .shareBDimg{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}

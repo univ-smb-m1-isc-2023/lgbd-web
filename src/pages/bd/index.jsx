@@ -3,6 +3,7 @@ import {useState} from 'react';
 async function Bd(){
     const queryParameters = new URLSearchParams(window.location.search)
     const isbn = queryParameters.get("isbn")
+    console.log("isbn", isbn);
     if(isbn === undefined){
         return (
             <>

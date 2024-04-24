@@ -6,6 +6,7 @@ import Account from './pages/account';
 import CreateAcc from './pages/createacc';
 import Users from './pages/users';
 import './styles/main.css';
+import Bd from './pages/bd';
 import {Routes, Route, Link, useLocation, useNavigate} from 'react-router-dom';
 import React, {useState, createContext, useContext} from 'react';
 
@@ -52,6 +53,7 @@ function App() {
           <Route path='/account' element={<Account/>}/>
           <Route path='/createacc' element={<CreateAcc/>}/>
           <Route path='/users' element={<Users/>}/>
+          <Route path='/bd' element={<Bd/>}/>
         </Routes>
       </div>
     </AuthContext.Provider>

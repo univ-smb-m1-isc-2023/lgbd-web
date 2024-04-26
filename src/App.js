@@ -4,6 +4,7 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Account from './pages/account';
 import CreateAcc from './pages/createacc';
+import Serie from './pages/serie';
 import Users from './pages/users';
 import UserSettings from './pages/usersettings';
 import ScrappingLaunch from './pages/scrappinglaunch';
@@ -65,6 +66,7 @@ function App() {
           <Route path='/createacc' element={<CreateAcc/>}/>
           <Route path='/users' element={<Users/>}/>
           <Route path='/bd' element={<Bd/>}/>
+          <Route path='/serie' element={<Serie/>}/>
         </Routes>
       </div>
     </AuthContext.Provider>

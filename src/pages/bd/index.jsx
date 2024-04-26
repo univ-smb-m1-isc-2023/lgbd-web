@@ -5,16 +5,40 @@ import './bd.css';
 function Bd(){
     const [bd, setBd] = useState([]);
     const {isLoggedIn} = useContext(AuthContext);
-
+    const { user } = useContext(AuthContext);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const [isFollowingAuthor, setIsFollowingAuthor] = useState(false);
+    const [isFollowingSeries, setIsFollowingSeries] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
 
 
     const queryParameters = new URLSearchParams(window.location.search)
     const isbn = queryParameters.get("isbn")
 
     useEffect(() => {
-        getBd();
+        initFollow();
     }, []);
+    const initFollow = async () =>{
+        await getBd();
+
+        if(bd == undefined){
+            initFollow();
+        }
+        if(isLoggedIn){
+            console.log("initFollow")
+            console.log("user", user)
+            console.log("bd", bd)
+            if(bd.auteur != undefined)
+                setIsFollowingAuthor(user.auteursSuivi.includes(bd.auteur))
+            if(bd.serie != undefined)
+                setIsFollowingSeries(user.seriesSuivi.includes(bd.serie))
+            setIsLiked(user.bdLiked.includes(bd))
+            console.log("isFollowingAuthor", isFollowingAuthor)
+            console.log("isFollowingSeries", isFollowingSeries)
+            console.log("isLiked", isLiked)
+        }
+    }
 
     const getBd = async () => {
         const response = await fetch('https://api-lgbd.oups.net/bd/get?isbn='+isbn, {
@@ -33,6 +57,17 @@ function Bd(){
     const prevImage = () => {
         setCurrentImageIndex((prevIndex) => (prevIndex - 1 + bd.image.length) % bd.image.length);
     };
+    const clickFollowAuthor = async () => {
+        if(!isFollowingAuthor){
+            const response = await fetch('https://api-lgbd.oups.net/addFollowAuteur?userId='+user.id+'&auteurId='+bd.auteur.id, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            });
+            
+        }
+    }
     
     return (
         <>
@@ -58,7 +93,7 @@ function Bd(){
                             <p><strong>Sortie:</strong> {bd.annee || 'Année inconnue'}</p>
                             <p>
                                 <strong>Auteur:</strong> {bd.auteur ? `${bd.auteur.nom}` : 'Auteur inconnu'}
-                                {isLoggedIn && bd.auteur && <button className="follow-author">Follow Author</button>}
+                                {isLoggedIn && bd.auteur && <button className="follow-author" onClick={() => clickFollowAuthor()}>Follow Author</button>}
                             </p>
                             <p>
                                 <strong>Serie:</strong> {bd.serie || 'Serie inconnue'}

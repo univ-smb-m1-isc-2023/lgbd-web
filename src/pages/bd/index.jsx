@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from '../../App';
 import { useContext } from 'react';
+import './bd.css';
 function Bd(){
     const [bd, setBd] = useState([]);
     const {isLoggedIn} = useContext(AuthContext);

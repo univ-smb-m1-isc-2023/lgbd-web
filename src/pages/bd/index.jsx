@@ -6,6 +6,9 @@ function Bd(){
     const [bd, setBd] = useState([]);
     const {isLoggedIn} = useContext(AuthContext);
 
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+
     const queryParameters = new URLSearchParams(window.location.search)
     const isbn = queryParameters.get("isbn")
 
@@ -21,7 +24,15 @@ function Bd(){
             },
         });
         setBd(await response.json());
+        
     }
+    const nextImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % bd.image.length);
+    };
+    
+    const prevImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex - 1 + bd.image.length) % bd.image.length);
+    };
     
     return (
         <>
@@ -32,10 +43,12 @@ function Bd(){
                     <div className="bd-content">
                         <h1 className="bd-title">{bd.titre || 'Titre inconnu'}</h1>
                         <div className="bd-images">
-                            {bd.images && bd.images.length > 0 ? (
-                                bd.images.map((image, index) => (
-                                    <img key={index} src={image} alt={`bd image ${index}`} />
-                                ))
+                        {bd.image && bd.image.length > 0 ? (
+                        <>
+                            <button onClick={prevImage}>Previous</button>
+                            <img src={bd.image[currentImageIndex]} alt={`bd image ${currentImageIndex}`} />
+                            <button onClick={nextImage}>Next</button>
+                        </>
                             ) : (
                                 <p>Images inconnues</p>
                             )}

@@ -103,8 +103,11 @@ function Search(){
                                     <p>Auteur: {item.auteur.nom || 'N/A'}</p>
                                     <p>Note: {item.note || 'N/A'}</p>
                                     <p>Editeur: {item.editeur}</p>
-                                    {item.image && <img src={item.image} alt={item.titre} />}
-                                    <button onClick={() => handleLike(item.isbn)}>J'aime</button>
+                                    <div className="bdContainer">
+                                        {item.image && <img src={item.image} alt={item.titre} className="bdImage"/>}
+                                        <button onClick={() => handleLike(item.isbn)} className="likeButton">J'aime</button>
+                                    </div>
+                                    
                                 </div>
                             </Link>
                         ))}

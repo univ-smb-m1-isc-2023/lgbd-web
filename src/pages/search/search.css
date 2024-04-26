@@ -104,6 +104,31 @@
     cursor: pointer;
 }
 
+.bdImage{
+    width: 150px;
+    height: 150px;
+}
+
+.bdContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.likeButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
 .clearButton:hover {
     background-color: #0056b3;
 }

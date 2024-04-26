@@ -1,13 +1,34 @@
-import {useState} from 'react';
-import { Link } from 'react-router-dom';
+import {useState, useEffect} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../App';
 import './createacc.css';
 
 function CreateAcc(){
-    const [username, setUsername] = useState('');
+    const [username, setUsernameC] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [admin, setAdmin] = useState(false); // [TODO] : add admin checkbox in form
+    const [showAdminOption, setShowAdminOption] = useState(false); // [TODO] : add admin checkbox in form
     const [error, setError] = useState('');
+    const {setIsLoggedIn} = useContext(AuthContext);
+    const {setUsername} = useContext(AuthContext);
+    const {setUser} = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if(event.ctrlKey && event.shiftKey && event.key === 'K'){
+                setShowAdminOption(prevShowAdminOption => !prevShowAdminOption);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        }
+    }, []);
 
     const createAccount = async (event) => {
         event.preventDefault();
@@ -17,23 +38,36 @@ function CreateAcc(){
             return;
         }
 
-        console.log("Username", username);
-        console.log("Email", email);
-        console.log("Password", password);
-        console.log("Confirm Password", confirmPassword);
+        console.log(admin);
 
         const response = await fetch('https://api-lgbd.oups.net/addUser', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
             },
-            body: JSON.stringify({name : username, email, password})
+            body: JSON.stringify({name : username, email, password, admin})
         });
-
-        console.log(response);
 
         if (!response.ok){
             throw new Error('Erreur lors de la création du compte');
+        }
+
+        const loginResponse = await fetch("https://api-lgbd.oups.net/checklogin", {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({email, password})
+        });
+        
+        if (!loginResponse.ok){
+            throw new Error('Erreur lors de la connexion');
+        }else{
+            const data = await loginResponse.json();
+            setIsLoggedIn(true);
+            setUsername(data.name);
+            setUser(data);
+            navigate("/");
         }
     }
 
@@ -46,11 +80,19 @@ function CreateAcc(){
                     <label htmlFor="email">Email</label>
                     <input type="email" id="email" name="email" required onChange={e=> setEmail(e.target.value)}/>
                     <label htmlFor="username">Nom d'utilisateur</label>
-                    <input type="text" id="username" name="username" required onChange={e => setUsername(e.target.value)}/>
+                    <input type="text" id="username" name="username" required onChange={e => setUsernameC(e.target.value)}/>
                     <label htmlFor="password">Mot de passe</label>
                     <input type="password" id="password" name="password" required onChange={e => setPassword(e.target.value)}/>
                     <label htmlFor="password">Confirmer le mot de passe</label>
                     <input type="password" id="password" name="password" required onChange={e => setConfirmPassword(e.target.value)}/>
+                    {showAdminOption && (
+                        <div>
+                            <label htmlFor="admin">
+                                Admin :
+                                <input type="checkbox" checked={admin} id="admin" name="admin" onChange={e => setAdmin(e.target.checked)}/>
+                            </label>
+                        </div>
+                    )}
                     <button type="submit">Créer le compte</button>
                 </form>
             </div>

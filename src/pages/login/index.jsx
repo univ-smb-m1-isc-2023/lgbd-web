@@ -9,6 +9,7 @@ function Login(){
     const [password, setPassword] = useState('');
     const {setIsLoggedIn} = useContext(AuthContext);
     const {setUsername} = useContext(AuthContext);
+    const {setUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -28,6 +29,7 @@ function Login(){
                 const data = await res.json();
                 setIsLoggedIn(true);
                 setUsername(data.name);
+                setUser(data);
                 navigate("/");
             }else{
                 throw new Error('Erreur lors de la connexion');

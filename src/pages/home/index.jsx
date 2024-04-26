@@ -1,14 +1,29 @@
-import {Link} from 'react-router-dom';
-import {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import {useState, useEffect} from 'react';
 import './home.css';
 
 function Home(){
-    const [searchTerm, setSearchTerm] = useState('');
     const [bdNumber, setBdNumber] = useState(0);
+    const navigate = useNavigate();
 
-    const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value);
+    const handleSearchClick = () => {
+        navigate('/search');
     }
+
+    const getBDNumber = async () => {
+        const response = await fetch('https://api-lgbd.oups.net/bd/bdCount', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+            }
+        });
+        const data = await response.json();
+        setBdNumber(data);
+    }
+
+    useEffect(() => {
+        getBDNumber();
+    }, []);
     
     return (
         <>
@@ -17,9 +32,9 @@ function Home(){
                 <input 
                     type="text" 
                     placeholder="🔍 Recherche une BD" 
-                    value={searchTerm} 
-                    onChange={handleSearchChange}
-                />            
+                    readOnly
+                    onClick={handleSearchClick}
+                />    
             </div>
             <div className="bdNumber">
                 <p>A ce jour, {bdNumber} bandes dessinées sont présentes sur le site.</p>

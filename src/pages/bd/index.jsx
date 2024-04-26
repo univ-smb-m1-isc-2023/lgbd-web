@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { AuthContext } from '../../App';
+import { useContext } from 'react';
 function Bd(){
     const [bd, setBd] = useState([]);
+    const {isLoggedIn} = useContext(AuthContext);
+
     const queryParameters = new URLSearchParams(window.location.search)
     const isbn = queryParameters.get("isbn")
 
@@ -24,19 +28,34 @@ function Bd(){
                 {bd == undefined ? (
                     <p>Chargement...</p>
                 ) : (
-                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <h1>{bd.titre}</h1>
-                        <div style={{display: 'flex', flexDirection: 'row'}}>
-                            <img src={bd.image} alt={bd.titre} style={{marginRight: '20px'}}/>
-                            <div>
-                                <p>{bd.resume}</p>
-                                <p>Editeur : {bd.editeur}</p>
-                                <p>Sortie : {bd.annee}</p>
-                                {bd.auteur != undefined ? (
-                                <p>Auteur : {bd.auteur.nom} {bd.auteur.prenom}</p>) : (
-                                <p>Auteur : Inconnu</p>)}
-                                
-                            </div>
+                    <div className="bd-content">
+                        <h1 className="bd-title">{bd.titre || 'Titre inconnu'}</h1>
+                        <div className="bd-images">
+                            {bd.images && bd.images.length > 0 ? (
+                                bd.images.map((image, index) => (
+                                    <img key={index} src={image} alt={`bd image ${index}`} />
+                                ))
+                            ) : (
+                                <p>Images inconnues</p>
+                            )}
+                        </div>
+                        <div className="bd-info">
+                            <p><strong>Editeur:</strong> {bd.editeur || 'Editeur inconnu'}</p>
+                            <p><strong>Sortie:</strong> {bd.annee || 'Année inconnue'}</p>
+                            <p>
+                                <strong>Auteur:</strong> {bd.auteur ? `${bd.auteur.nom}` : 'Auteur inconnu'}
+                                {isLoggedIn && bd.auteur && <button className="follow-author">Follow Author</button>}
+                            </p>
+                            <p>
+                                <strong>Serie:</strong> {bd.serie || 'Serie inconnue'}
+                                {isLoggedIn && bd.serie && <button className="follow-series">Follow Series</button>}
+                            </p>
+                            <p><strong>Note:</strong> {bd.note || 'Note inconnue'}</p>
+                            <p><strong>ISBN:</strong> {bd.isbn || 'ISBN inconnu'}</p>
+                            {isLoggedIn && <button className="like-bd">Like BD</button>}
+                        </div>
+                        <div className="bd-resume">
+                            <p>{bd.resume || 'Résumé inconnu'}</p>
                         </div>
                     </div>
                 )}

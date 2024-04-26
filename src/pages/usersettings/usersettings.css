@@ -1,0 +1,72 @@
+.userSettings {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userSettings h1 {
+    margin-bottom: 20px;
+}
+
+.userSettingsForm {
+    width: 50%;
+}
+
+.changeForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.changeForm label {
+    margin: 10px 0 5px 0;
+}
+
+.changeForm input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.changeForm button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+.changeForm button:hover {
+    background-color: #0056b3;
+}
+
+.deleteAccount {
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dc3545;
+    color: white;
+    cursor: pointer;
+}
+
+.deleteAccount:hover {
+    background-color: #c82333;
+}
+
+.switchForm {
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0ad4e;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.switchForm:hover {
+    background-color: #ec971f;
+}

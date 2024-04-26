@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { AuthContext } from '../../App';
+import { useContext } from 'react';
 import './style.css';
 function Bd(){
     const [bd, setBd] = useState([]);
+    const {isLoggedIn} = useContext(AuthContext);
+
     const queryParameters = new URLSearchParams(window.location.search)
     const isbn = queryParameters.get("isbn")
 
@@ -41,15 +45,15 @@ function Bd(){
                             <p><strong>Sortie:</strong> {bd.annee || 'Année inconnue'}</p>
                             <p>
                                 <strong>Auteur:</strong> {bd.auteur ? `${bd.auteur.nom}` : 'Auteur inconnu'}
-                                {bd.auteur && <button className="follow-author">Follow Author</button>}
+                                {isLoggedIn && bd.auteur && <button className="follow-author">Follow Author</button>}
                             </p>
                             <p>
                                 <strong>Serie:</strong> {bd.serie || 'Serie inconnue'}
-                                {bd.serie && <button className="follow-series">Follow Series</button>}
+                                {isLoggedIn && bd.serie && <button className="follow-series">Follow Series</button>}
                             </p>
                             <p><strong>Note:</strong> {bd.note || 'Note inconnue'}</p>
                             <p><strong>ISBN:</strong> {bd.isbn || 'ISBN inconnu'}</p>
-                            <button className="like-bd">Like BD</button>
+                            {isLoggedIn && <button className="like-bd">Like BD</button>}
                         </div>
                         <div className="bd-resume">
                             <p>{bd.resume || 'Résumé inconnu'}</p>

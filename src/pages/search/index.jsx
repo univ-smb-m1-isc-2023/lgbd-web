@@ -35,6 +35,18 @@ function Search(){
         console.log(serieList);
     }
 
+    const handleLike = async (isbn) => {
+        const response = await fetch('https://api-lgbd.oups.net/bd/like', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({isbn: isbn})
+        });
+        const data = await response.json();
+        console.log(data);
+    }
+
     const clearFields = () => {
         setSerie('');
         setAuteur('');
@@ -87,10 +99,11 @@ function Search(){
                                 <div key={index}>
                                     <h2>{item.titre}</h2>
                                     <p>Série: {item.serie || 'N/A'}</p>
-                                    <p>Auteur: {item.auteur || 'N/A'}</p>
+                                    <p>Auteur: {item.auteur.nom || 'N/A'}</p>
                                     <p>Note: {item.note || 'N/A'}</p>
                                     <p>Editeur: {item.editeur}</p>
                                     {item.image && <img src={item.image} alt={item.titre} />}
+                                    <button onClick={() => handleLike(item.isbn)}>J'aime</button>
                                 </div>
                             </Link>
                         ))}
@@ -114,10 +127,12 @@ function Search(){
                                 (!titre || item.titre?.toLowerCase().includes(titre.toLowerCase()))
                             );
                         }).map((item, index) => (
-                            <div key={index}>
-                                <h2>{item.titre}</h2>
-                                <p>Nombre de BDs: {item.bdCount}</p>
-                            </div>
+                            <Link to={`/serie?name=${item.titre}`} key={index}>
+                                <div key={index}>
+                                    <h2>{item.titre}</h2>
+                                    <p>Nombre de BDs: {item.bdCount}</p>
+                                </div>
+                            </Link>
                         ))}
                     </div>
                 </>

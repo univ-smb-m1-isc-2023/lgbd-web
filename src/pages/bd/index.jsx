@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './style.css';
 function Bd(){
     const [bd, setBd] = useState([]);
     const queryParameters = new URLSearchParams(window.location.search)

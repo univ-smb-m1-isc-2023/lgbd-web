@@ -39,12 +39,16 @@ function Bd(){
                         <div className="bd-info">
                             <p><strong>Editeur:</strong> {bd.editeur || 'Editeur inconnu'}</p>
                             <p><strong>Sortie:</strong> {bd.annee || 'Année inconnue'}</p>
-                            <p><strong>Auteur:</strong> {!bd.auteur ? ` <button className="follow-author">Follow Author</button> ` : 'Auteur inconnu'}</p>
-                            <p><strong>Serie:</strong> {bd.serie || 'Serie inconnue'}</p>
+                            <p>
+                                <strong>Auteur:</strong> {bd.auteur ? `${bd.auteur.nom}` : 'Auteur inconnu'}
+                                {bd.auteur && <button className="follow-author">Follow Author</button>}
+                            </p>
+                            <p>
+                                <strong>Serie:</strong> {bd.serie || 'Serie inconnue'}
+                                {bd.serie && <button className="follow-series">Follow Series</button>}
+                            </p>
                             <p><strong>Note:</strong> {bd.note || 'Note inconnue'}</p>
                             <p><strong>ISBN:</strong> {bd.isbn || 'ISBN inconnu'}</p>
-                            
-                            <button className="follow-series">Follow Series</button>
                             <button className="like-bd">Like BD</button>
                         </div>
                         <div className="bd-resume">

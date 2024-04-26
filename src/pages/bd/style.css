@@ -58,3 +58,28 @@ body {
     font-weight: bold;
     color: #007BFF;
 }
+.follow-author, .follow-series, .like-bd {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.follow-author {
+    background-color: #007BFF;
+}
+
+.follow-series {
+    background-color: #28a745;
+}
+
+.like-bd {
+    background-color: #dc3545;
+}
+
+.follow-author, .follow-series {
+    margin-left: 10px;
+    /* rest of the styles */
+}

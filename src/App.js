@@ -4,6 +4,7 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Account from './pages/account';
 import CreateAcc from './pages/createacc';
+import Serie from './pages/serie';
 import Users from './pages/users';
 import UserSettings from './pages/usersettings';
 import ScrappingLaunch from './pages/scrappinglaunch';
@@ -11,6 +12,7 @@ import Search from './pages/search';
 import Bd from './pages/bd';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import './styles/main.css';
+import Bd from './pages/bd';
 import {Routes, Route, Link, useLocation, useNavigate} from 'react-router-dom';
 import React, {useState, createContext, useContext} from 'react';
 
@@ -65,6 +67,8 @@ function App() {
           <Route path='/search' element={<Search/>}/>
           <Route path='/createacc' element={<CreateAcc/>}/>
           <Route path='/users' element={<Users/>}/>
+          <Route path='/bd' element={<Bd/>}/>
+          <Route path='/serie' element={<Serie/>}/>
         </Routes>
       </div>
     </AuthContext.Provider>

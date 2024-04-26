@@ -1,0 +1,26 @@
+.bd {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.bd h1 {
+    margin-bottom: 20px;
+}
+
+.bd .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
+}
+
+.bd .content img {
+    margin-right: 20px;
+}
+
+.bd .content div {
+    display: flex;
+    flex-direction: column;
+}

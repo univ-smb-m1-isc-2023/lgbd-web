@@ -1,42 +1,49 @@
-import {useState} from 'react';
-
-async function Bd(){
+import React, { useEffect, useState } from 'react';
+import './style.css';
+function Bd(){
+    const [bd, setBd] = useState([]);
     const queryParameters = new URLSearchParams(window.location.search)
     const isbn = queryParameters.get("isbn")
-    if(isbn === undefined){
-        return (
-            <>
-                <p>Lien corrompu, isbn non indiqué</p>
-            </>
-        )
-    }
-    const response = await fetch('https://api-lgbd.oups.net/bd/get?isbn='+isbn, {
-            method: 'POST',
+
+    useEffect(() => {
+        getBd();
+    }, []);
+
+    const getBd = async () => {
+        const response = await fetch('https://api-lgbd.oups.net/bd/get?isbn='+isbn, {
+            method: 'GET',
             headers: {
                 'Content-type': 'application/json',
             },
         });
-    if(!response.ok){
-        return (
-            <>
-                <p>Erreur lors de la récupération de la BD</p>
-            </>
-        )
+        setBd(await response.json());
     }
-    const bd = await response.json();
-    console.log(bd);
+    
     return (
         <>
             <div className="bd">
-                <h1>{bd.title}</h1>
-                <p>ISBN : {bd.isbn}</p>
-                <p>Titre : {bd.titre}</p>
-                <p>Editeur : {bd.editeur}</p>
-                <p>Annee : {bd.annee}</p>
+                {bd == undefined ? (
+                    <p>Chargement...</p>
+                ) : (
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <h1>{bd.titre}</h1>
+                        <div style={{display: 'flex', flexDirection: 'row'}}>
+                            <img src={bd.image} alt={bd.titre} style={{marginRight: '20px'}}/>
+                            <div>
+                                <p>{bd.resume}</p>
+                                <p>Editeur : {bd.editeur}</p>
+                                <p>Sortie : {bd.annee}</p>
+                                {bd.auteur != undefined ? (
+                                <p>Auteur : {bd.auteur.nom} {bd.auteur.prenom}</p>) : (
+                                <p>Auteur : Inconnu</p>)}
+                                
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     )
-
 }
 
 export default Bd;

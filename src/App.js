@@ -8,6 +8,7 @@ import Users from './pages/users';
 import UserSettings from './pages/usersettings';
 import ScrappingLaunch from './pages/scrappinglaunch';
 import Search from './pages/search';
+import Bd from './pages/bd';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import './styles/main.css';
 import {Routes, Route, Link, useLocation, useNavigate} from 'react-router-dom';
@@ -60,6 +61,7 @@ function App() {
           <Route path='/account' element={<PrivateRoute><Account/></PrivateRoute>}/>
           <Route path='/usersettings' element={<PrivateRoute><UserSettings/></PrivateRoute>}/>
           <Route path='/scrapping' element={<ScrappingLaunch/>}/>
+          <Route path='/bd' element={<Bd/>}/>
           <Route path='/search' element={<Search/>}/>
           <Route path='/createacc' element={<CreateAcc/>}/>
           <Route path='/users' element={<Users/>}/>

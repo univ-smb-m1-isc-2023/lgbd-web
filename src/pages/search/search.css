@@ -89,6 +89,11 @@
     margin-top: 10px;
 }
 
+.results a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .clearButton {
     background-color: #007BFF;
     color: white;
@@ -101,4 +106,15 @@
 
 .clearButton:hover {
     background-color: #0056b3;
+}
+
+.changeSearch{
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0ad4e;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }

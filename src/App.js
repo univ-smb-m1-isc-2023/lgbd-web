@@ -6,6 +6,8 @@ import Account from './pages/account';
 import CreateAcc from './pages/createacc';
 import Users from './pages/users';
 import UserSettings from './pages/usersettings';
+import ScrappingLaunch from './pages/scrappinglaunch';
+import Search from './pages/search';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import './styles/main.css';
 import {Routes, Route, Link, useLocation, useNavigate} from 'react-router-dom';
@@ -32,8 +34,10 @@ function App() {
         <div className='topnav'>
           <div>
             <Link to='/' className={(location.pathname == '/')? "active" : ""}>Accueil</Link>
+            <Link to='/search' className={(location.pathname == '/search')? "active" : ""}>Recherche</Link>
             <Link to='/account' className={(location.pathname == '/account')? "active" : ""}>Compte</Link>
-            <Link to='/users' className={(location.pathname == '/users')? "active" : ""}>Utilisateurs</Link>
+            {isLoggedIn && user.admin &&<Link to='/users' className={(location.pathname == '/users')? "active" : ""}>Utilisateurs</Link>}
+            {isLoggedIn && user.admin && <Link to='/scrapping' className={(location.pathname == '/scrapping')? "active" : ""}>Scrapping</Link>}
           </div>
           <div>
             {isLoggedIn ? (
@@ -53,10 +57,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/login' element={<Login/>}/>
-          {/* <Route path='/account' element={<PrivateRoute><Account/></PrivateRoute>}/>
-          <Route path='/usersettings' element={<PrivateRoute><UserSettings/></PrivateRoute>}/> */}
-          <Route path='/account' element={<Account/>}/>
-          <Route path='/usersettings' element={<UserSettings/>}/>
+          <Route path='/account' element={<PrivateRoute><Account/></PrivateRoute>}/>
+          <Route path='/usersettings' element={<PrivateRoute><UserSettings/></PrivateRoute>}/>
+          <Route path='/scrapping' element={<ScrappingLaunch/>}/>
+          <Route path='/search' element={<Search/>}/>
           <Route path='/createacc' element={<CreateAcc/>}/>
           <Route path='/users' element={<Users/>}/>
         </Routes>

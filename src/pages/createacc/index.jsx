@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../App';
@@ -9,11 +9,26 @@ function CreateAcc(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [admin, setAdmin] = useState(false); // [TODO] : add admin checkbox in form
+    const [showAdminOption, setShowAdminOption] = useState(false); // [TODO] : add admin checkbox in form
     const [error, setError] = useState('');
     const {setIsLoggedIn} = useContext(AuthContext);
     const {setUsername} = useContext(AuthContext);
     const {setUser} = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if(event.ctrlKey && event.shiftKey && event.key === 'K'){
+                setShowAdminOption(prevShowAdminOption => !prevShowAdminOption);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        }
+    }, []);
 
     const createAccount = async (event) => {
         event.preventDefault();
@@ -23,12 +38,14 @@ function CreateAcc(){
             return;
         }
 
+        console.log(admin);
+
         const response = await fetch('https://api-lgbd.oups.net/addUser', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
             },
-            body: JSON.stringify({name : username, email, password})
+            body: JSON.stringify({name : username, email, password, admin})
         });
 
         if (!response.ok){
@@ -68,6 +85,14 @@ function CreateAcc(){
                     <input type="password" id="password" name="password" required onChange={e => setPassword(e.target.value)}/>
                     <label htmlFor="password">Confirmer le mot de passe</label>
                     <input type="password" id="password" name="password" required onChange={e => setConfirmPassword(e.target.value)}/>
+                    {showAdminOption && (
+                        <div>
+                            <label htmlFor="admin">
+                                Admin :
+                                <input type="checkbox" checked={admin} id="admin" name="admin" onChange={e => setAdmin(e.target.checked)}/>
+                            </label>
+                        </div>
+                    )}
                     <button type="submit">Créer le compte</button>
                 </form>
             </div>

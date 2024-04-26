@@ -50,9 +50,10 @@ function Account(){
                     <div className="accountInfos">
                         <p>Nom d'utilisateur: {username}</p>
                     </div>
-                    <div className="admin">
+                    {user.admin && <div className="admin">
                         <p>Admin</p>
-                    </div>
+                    </div>}
+                    
                     <Link to='/usersettings'><img src={settingsWheel} alt="User settings" className="settings-button"/></Link>
                 </div>
                 <p className="bdCount">Votre nombre de BD : {bdCount}</p>

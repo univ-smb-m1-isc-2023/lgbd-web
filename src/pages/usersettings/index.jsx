@@ -4,7 +4,10 @@ import { AuthContext } from "../../App";
 
 function UserSettings() {
     const { user } = useContext(AuthContext);
-    const [username, setUsername] = useState(user.name);
+    const {setIsLoggedIn} = useContext(AuthContext);
+    const {setUser} = useContext(AuthContext);
+    const {setUsername} = useContext(AuthContext);
+    const [username, setUsernameC] = useState(user.name);
     const [email, setEmail] = useState(user.email);
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -54,6 +57,9 @@ function UserSettings() {
             }
         });
         console.log(response);
+        setIsLoggedIn(false);
+        setUsername('');
+        setUser({});
     };
 
     return(
@@ -64,7 +70,7 @@ function UserSettings() {
                     {!showPasswordForm ? (
                         <form className="changeForm" onSubmit={handleSubmitUserInfo}>
                             <label htmlFor="username">Nom d'utilisateur</label>
-                            <input type="text" id="username" name="username" required value={username} onChange={(e) => setUsername(e.target.value)}/>
+                            <input type="text" id="username" name="username" required value={username} onChange={(e) => setUsernameC(e.target.value)}/>
                             <label htmlFor="email">Email</label>
                             <input type="email" id="email" name="email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
                             <label htmlFor="password">Mot de passe actuel</label>
@@ -74,7 +80,7 @@ function UserSettings() {
                     ) : (
                         <form className="changeForm" onSubmit={handleSubmitPassword}>
                             <label htmlFor="username">Nom d'utilisateur</label>
-                            <input type="text" id="username" name="username" required value={username} onChange={(e) => setUsername(e.target.value)}/>
+                            <input type="text" id="username" name="username" required value={username} onChange={(e) => setUsernameC(e.target.value)}/>
                             <label htmlFor="email">Email</label>
                             <input type="email" id="email" name="email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
                             <label htmlFor="password">Mot de passe actuel</label>

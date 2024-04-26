@@ -1,8 +1,10 @@
 import './search.css'
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {Link} from 'react-router-dom';
+import {AuthContext} from '../../App';
 
 function Search(){
+    const {user} = useContext(AuthContext);
     const [serie, setSerie] = useState('');
     const [auteur, setAuteur] = useState('');
     const [titre, setTitre] = useState('');
@@ -36,12 +38,11 @@ function Search(){
     }
 
     const handleLike = async (isbn) => {
-        const response = await fetch('https://api-lgbd.oups.net/bd/like', {
+        const response = await fetch('https://api-lgbd.oups.net/addLikeBd?isbn='+isbn+'&userId='+user.id, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-            },
-            body: JSON.stringify({isbn: isbn})
+            }
         });
         const data = await response.json();
         console.log(data);
